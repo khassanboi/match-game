@@ -1,0 +1,26 @@
+{
+  "name": "match-game",
+  "version": "1.0.0",
+  "description": "A game of  matching pairs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khassanboi/match-game.git"
+  },
+  "keywords": [
+    "match",
+    "game"
+  ],
+  "author": "Khasanboy Khabibullaev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/khassanboi/match-game/issues"
+  },
+  "homepage": "https://github.com/khassanboi/match-game#readme",
+  "dependencies": {
+    "eslint": "^7.27.0"
+  }
+}

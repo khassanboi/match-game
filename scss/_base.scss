@@ -1,0 +1,27 @@
+//COLORS//
+$primary-color: #2196f3;
+
+//FONTS//
+$font-primary: "Roboto", sans-serif;
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+	backface-visibility: hidden;
+}
+
+html {
+	box-sizing: border-box;
+	font-size: 62.5%; //10px=1rem
+	overflow-x: hidden;
+}
+
+body {
+	font-family: $font-primary;
+	font-weight: 500;
+	overflow-x: hidden;
+	position: relative;
+}

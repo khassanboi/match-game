@@ -1,0 +1,98 @@
+.navbar {
+	list-style: none;
+	width: 100%;
+	background-color: $primary-color;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 6.4rem;
+
+	&__item--logo {
+		display: flex;
+		flex-direction: column;
+		cursor: pointer;
+
+		.logo-top,
+		.logo-bottom {
+			width: 8rem;
+			height: 2rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-transform: uppercase;
+			font-size: 1.1rem;
+			text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+			transition: all 0.6s;
+		}
+
+		.logo-top {
+			color: #ffffff;
+			background-color: transparent;
+		}
+
+		.logo-bottom {
+			color: $primary-color;
+			background-color: #ffffff;
+		}
+
+		&:hover {
+			.logo-top {
+				color: $primary-color;
+				background-color: #ffffff;
+			}
+
+			.logo-bottom {
+				color: #ffffff;
+				background-color: transparent;
+			}
+		}
+	}
+
+	&__item:first-child {
+		flex-basis: 15%;
+		margin: 1.5rem 2.5rem;
+	}
+
+	&__item:last-child {
+		flex-basis: 60%;
+		margin: 1.5rem 2.5rem;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	&__item:not(:first-child):not(:last-child) {
+		width: 9.6rem;
+		height: 100%;
+		padding: 1rem 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-evenly;
+		transition: background 0.1s;
+
+		a {
+			color: #ffffff;
+			text-decoration: none;
+			text-align: center;
+			font-weight: 400;
+
+			svg {
+				width: 2rem;
+				height: 2rem;
+				fill: #ffffff;
+			}
+		}
+
+		&:hover {
+			background-color: #1e88e5;
+		}
+
+		&.disabled {
+			opacity: 0.7;
+			a {
+				cursor: not-allowed;
+			}
+		}
+	}
+}
