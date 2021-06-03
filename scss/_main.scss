@@ -84,7 +84,8 @@
 			}
 		}
 
-		&:hover {
+		&:not(.disabled):hover,
+		&:not(.disabled).active {
 			background-color: #1e88e5;
 		}
 
@@ -94,5 +95,52 @@
 				cursor: not-allowed;
 			}
 		}
+	}
+}
+
+.instr {
+	max-width: 1000px;
+	margin: 3.3rem auto;
+	padding: 3rem;
+	padding-right: 18rem;
+	background-color: rgba(0, 0, 0, 0.05);
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+
+	&__item {
+		display: flex;
+		justify-content: space-between;
+		margin: 1rem 0;
+	}
+
+	&__content {
+		padding: 1.6rem;
+		min-height: 13.2rem;
+		width: 36rem;
+		background-color: #ffffff;
+		display: flex;
+	}
+
+	&__number {
+		width: 4rem;
+		height: 4rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background-color: $primary-color;
+		font-size: 2.4rem;
+		color: #ffffff;
+	}
+
+	&__text {
+		font-size: 1.4rem;
+		font-weight: normal;
+		margin-left: 1.6rem;
+	}
+
+	&__img {
+		height: 100%;
 	}
 }
