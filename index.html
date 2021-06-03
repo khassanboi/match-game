@@ -43,7 +43,7 @@
 					</a>
 				</li>
 				<li class="navbar__item">
-					<a href="#" class="btn btn--light">Register New Player</a>
+					<a href="#" class="btn btn--ghost">Register New Player</a>
 				</li>
 			</ul>
 		</nav>
@@ -71,5 +71,42 @@
 				<img src="/img/instr-3.png" class="instr__img"></img>
 			</section>
 		</main>
+		<section class="reg"> <!-- add "active" class-name to amke t visible -->
+			<div class="reg__window">
+				<h1 class="h1">Register new Player</h1>
+				<div class="reg__form">
+					<form action="#">
+						<label for="first-name" class="reg__label">
+							First Name
+							<input type="text" id="first-name" name="first-name" class="reg__input">
+							<svg class="visible">
+								<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
+							</svg>
+						</label>
+						<label for="last-name" class="reg__label active">
+							Last Name
+							<input type="text" id="last-name" name="last-name" class="reg__input" value="Doe">
+							<svg class="visible">
+								<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
+							</svg>
+						</label>
+						<label for="email" class="reg__label">
+							E-mail
+							<input type="email" id="email" name="email" class="reg__input">
+							<svg class="visible">
+								<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
+							</svg>
+						</label>
+					</form>
+					<svg class="reg__form--avatar">
+						<use xlink:href="/fonts/symbol-defs.svg#i-user"></use>
+					</svg>
+					<div class="reg__buttons">
+						<a href="#" class="btn btn--dark">Add User</a>
+						<a href="#" class="btn btn--light">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</section>
 	</body>
 </html>
