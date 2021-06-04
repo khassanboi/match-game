@@ -327,3 +327,59 @@
 		}
 	}
 }
+
+.rank {
+	&__container {
+		max-width: 1000px;
+		min-height: 600px;
+		margin: 3.3rem auto;
+		padding: 3rem;
+		background-color: rgba(0, 0, 0, 0.05);
+		border-radius: 5px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__list {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin: 0.5rem 0;
+		padding: 0.5rem 0;
+		border-bottom: 1px solid rgba(33, 33, 33, 0.08);
+		color: #333333;
+
+		h3 {
+			font-size: 1.4rem;
+		}
+
+		p {
+			font-size: 1.2rem;
+		}
+	}
+
+	&__item-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		img {
+			width: 4rem;
+			height: auto;
+			border-radius: 50%;
+			border: 1px solid #aaa;
+			margin-right: 1.5rem;
+		}
+	}
+
+	&__item-score span {
+		color: $primary-color;
+	}
+}
