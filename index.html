@@ -43,7 +43,7 @@
 					</a>
 				</li>
 				<li class="navbar__item">
-					<a href="#" class="btn btn--ghost">Register New Player</a>
+					<a href="#" class="btn btn--ghost" id="register">Register New Player</a>
 				</li>
 			</ul>
 		</nav>
@@ -71,7 +71,7 @@
 				<img src="/img/instr-3.png" class="instr__img"></img>
 			</section>
 		</main>
-		<section class="reg"> <!-- add "active" class-name to amke t visible -->
+		<section class="reg" id="reg"> <!-- add "active" class-name to make it visible -->
 			<div class="reg__window">
 				<h1 class="h1">Register new Player</h1>
 				<div class="reg__form">
@@ -83,9 +83,9 @@
 								<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
 							</svg>
 						</label>
-						<label for="last-name" class="reg__label active">
+						<label for="last-name" class="reg__label">
 							Last Name
-							<input type="text" id="last-name" name="last-name" class="reg__input" value="Doe">
+							<input type="text" id="last-name" name="last-name" class="reg__input">
 							<svg class="visible">
 								<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
 							</svg>
@@ -103,10 +103,12 @@
 					</svg>
 					<div class="reg__buttons">
 						<a href="#" class="btn btn--dark">Add User</a>
-						<a href="#" class="btn btn--light">Cancel</a>
+						<a href="#" class="btn btn--light" id="cancel-reg">Cancel</a>
 					</div>
 				</div>
 			</div>
 		</section>
 	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="/js/app.js"></script>
 </html>
