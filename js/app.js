@@ -23,4 +23,11 @@ $(document).ready(() => {
 			$("#last-name").parent().addClass("active");
 		}
 	});
+
+	$(".game__card").click((e) => {
+		$(e.currentTarget).addClass("turned");
+		setTimeout(() => {
+			$(e.currentTarget).removeClass("turned");
+		}, 2000);
+	});
 });
