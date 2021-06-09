@@ -20,6 +20,7 @@ html {
 }
 
 body {
+  min-height: 100vh;
   font-family: $font-primary;
   font-weight: 500;
   overflow-x: hidden;
