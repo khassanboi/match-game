@@ -332,7 +332,7 @@
 .rank {
 	&__container {
 		max-width: 1000px;
-		min-height: 600px;
+		min-height: 500px;
 		margin: 3.3rem auto;
 		padding: 3rem;
 		background-color: rgba(0, 0, 0, 0.05);
@@ -390,7 +390,7 @@
 		max-width: 1000px;
 		margin: 3.3rem auto;
 		padding: 3rem;
-		box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.24), 0px 9px 18px rgba(0, 0, 0, 0.18);
+		background-color: rgba(0, 0, 0, 0.05);
 		border-radius: 5px;
 		display: flex;
 		flex-direction: column;

@@ -19,15 +19,15 @@
 					</div>
 				</li>
 				<li class="navbar__item active">
-					<a href="#">
+					<a href="/" id="page-home" data-value="home">
 						<svg>
 							<use xlink:href="/fonts/symbol-defs.svg#i-about"></use>
 						</svg>
 						<h4>About Game</h4>
 					</a>
 				</li>
-				<li class="navbar__item disabled">
-					<a href="/pages/rank.html" >
+				<li class="navbar__item">
+					<a href="/" id="page-rank" data-value="rank">
 						<svg>
 							<use xlink:href="/fonts/symbol-defs.svg#i-star"></use>
 						</svg>
@@ -35,7 +35,7 @@
 					</a>
 				</li>
 				<li class="navbar__item">
-					<a href="/pages/settings.html">
+					<a href="/" id="page-settings" data-value="settings">
 						<svg>
 							<use xlink:href="/fonts/symbol-defs.svg#i-settings"></use>
 						</svg>
@@ -47,7 +47,8 @@
 				</li>
 			</ul>
 		</nav>
-		<main class="instr">
+		<main id="main">
+			<main class="instr">
 			<h1 class="h1">How to play?</h1>
 			<section class="instr__item">
 				<div class="instr__content">
@@ -70,45 +71,46 @@
 				</div>
 				<img src="/img/instr-3.png" class="instr__img"></img>
 			</section>
-		</main>
-		<section class="reg" id="reg"> <!-- add "active" class-name to make it visible -->
-			<div class="reg__window">
-				<h1 class="h1">Register new Player</h1>
-				<div class="reg__form">
-					<form action="#">
-						<label for="first-name" class="reg__label">
-							First Name
-							<input type="text" id="first-name" name="first-name" class="reg__input">
-							<svg class="visible">
-								<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
-							</svg>
-						</label>
-						<label for="last-name" class="reg__label">
-							Last Name
-							<input type="text" id="last-name" name="last-name" class="reg__input">
-							<svg class="visible">
-								<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
-							</svg>
-						</label>
-						<label for="email" class="reg__label">
-							E-mail
-							<input type="email" id="email" name="email" class="reg__input">
-							<svg class="visible">
-								<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
-							</svg>
-						</label>
-					</form>
-					<svg class="reg__form--avatar">
-						<use xlink:href="/fonts/symbol-defs.svg#i-user"></use>
-					</svg>
-					<div class="reg__buttons">
-						<a href="#" class="btn btn--dark">Add User</a>
-						<a href="#" class="btn btn--light" id="cancel-reg">Cancel</a>
+			</main>
+			<section class="reg" id="reg"> <!-- add "active" class-name to make it visible -->
+				<div class="reg__window">
+					<h1 class="h1">Register new Player</h1>
+					<div class="reg__form">
+						<form action="#">
+							<label for="first-name" class="reg__label">
+								First Name
+								<input type="text" id="first-name" name="first-name" class="reg__input">
+								<svg class="visible">
+									<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
+								</svg>
+							</label>
+							<label for="last-name" class="reg__label">
+								Last Name
+								<input type="text" id="last-name" name="last-name" class="reg__input">
+								<svg class="visible">
+									<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
+								</svg>
+							</label>
+							<label for="email" class="reg__label">
+								E-mail
+								<input type="email" id="email" name="email" class="reg__input">
+								<svg class="visible">
+									<use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
+								</svg>
+							</label>
+						</form>
+						<svg class="reg__form--avatar">
+							<use xlink:href="/fonts/symbol-defs.svg#i-user"></use>
+						</svg>
+						<div class="reg__buttons">
+							<a href="#" class="btn btn--dark" id="add-user">Add User</a>
+							<a href="#" class="btn btn--light" id="cancel-reg">Cancel</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		</main>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="/js/app.js"></script>
+	<script src="/js/main.js"></script>
 </html>
