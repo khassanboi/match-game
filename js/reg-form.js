@@ -1,4 +1,15 @@
 $(document).ready(() => {
+  //Registration form open-close
+  $("#register").click(() => {
+    $("#reg").addClass("active");
+  });
+  $("#cancel-reg").click((e) => {
+    e.preventDefault();
+    $("#reg").removeClass("active");
+    $(".reg__input").val("");
+    $(".reg__input").parent().removeClass("valid");
+  });
+
   //Registration form validation
   $("#first-name").keydown(() => {
     setTimeout(() => {
@@ -33,12 +44,12 @@ $(document).ready(() => {
     }
   };
 
+  //Enable/disable submitting button
   $(".reg__input").keydown((event) => {
     setTimeout(() => {
       validateForm(event.target);
     }, 100);
 
-    //enable/disable submitting button
     if ($("#first-name").parent().hasClass("valid") && $("#last-name").parent().hasClass("valid") && $("#email").parent().hasClass("valid")) {
       $("#add-user").removeClass("disabled");
     } else {
