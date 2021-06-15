@@ -11,16 +11,6 @@ $(document).ready(() => {
   });
 
   //Registration form validation
-  $("#first-name").keydown(() => {
-    setTimeout(() => {
-      if (!$("#first-name").val()) {
-        $("#first-name").parent().removeClass("active");
-      } else {
-        $("#first-name").parent().addClass("active");
-      }
-    }, 100);
-  });
-
   const validateForm = (input) => {
     const chars = `~!@#$%^&*()[]{}_-+=|:;"'<>,.?/1234567890`;
     const emailChars = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -45,15 +35,14 @@ $(document).ready(() => {
   };
 
   //Enable/disable submitting button
-  $(".reg__input").keydown((event) => {
+  $(".reg__input").change((event) => {
     setTimeout(() => {
       validateForm(event.target);
+      if ($("#first-name").parent().hasClass("valid") && $("#last-name").parent().hasClass("valid") && $("#email").parent().hasClass("valid")) {
+        $("#add-user").removeClass("disabled");
+      } else {
+        $("#add-user").addClass("disabled");
+      }
     }, 100);
-
-    if ($("#first-name").parent().hasClass("valid") && $("#last-name").parent().hasClass("valid") && $("#email").parent().hasClass("valid")) {
-      $("#add-user").removeClass("disabled");
-    } else {
-      $("#add-user").addClass("disabled");
-    }
   });
 });

@@ -1,14 +1,12 @@
 .navbar {
-  &__list {
-    list-style: none;
-    width: 100%;
-    background-color: $primary-color;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 6.4rem;
-  }
+  list-style: none;
+  width: 100%;
+  background-color: $primary-color;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 6.4rem;
 
   &__item--logo {
     display: flex;
@@ -157,11 +155,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.25);
   display: none;
   justify-content: center;
   align-items: center;
+  position: fixed;
 
   &.active {
     display: flex;
@@ -235,12 +234,17 @@
     border-bottom: 1px solid rgba(33, 33, 33, 0.1);
     outline: none;
     font-size: 1.6rem;
+
+    &#avatar {
+      display: none;
+    }
   }
 
   &__form--avatar {
     width: 19.8rem;
     height: 19.8rem;
     flex-basis: 50%;
+    text-align: center;
     cursor: pointer;
     fill: #757575;
   }

@@ -78,7 +78,7 @@
         <div class="reg__window">
           <h1 class="h1">Register new Player</h1>
           <div class="reg__form">
-            <form action="#">
+            <div class="reg__form--main" action="#">
               <label for="first-name" class="reg__label">
                 First Name
                 <input type="text" id="first-name" name="first-name" class="reg__input">
@@ -100,10 +100,16 @@
                   <use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
                 </svg>
               </label>
-            </form>
-            <svg class="reg__form--avatar">
-              <use xlink:href="/fonts/symbol-defs.svg#i-user"></use>
-            </svg>
+            </div>
+            <div class="reg__form--avatar">
+            <label for="avatar">
+              <input type="file" id="avatar" class="reg__input" accept="image/png, image/jpg, image/jpeg">
+              <svg class="reg__form--avatar">
+                <use xlink:href="/fonts/symbol-defs.svg#i-user"></use>
+              </svg>
+            </label>
+            </div>
+            
             <div class="reg__buttons">
               <a href="/" class="btn btn--dark disabled" id="add-user">Add User</a>
               <a href="/" class="btn btn--light" id="cancel-reg">Cancel</a>

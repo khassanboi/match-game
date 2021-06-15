@@ -8,36 +8,30 @@ $(document).ready(() => {
       JSON.parse(localStorage.getItem("users")).forEach((user) => users.push(user));
     }
 
-    console.log(users);
-
     let newUser = {
       id: idGenerator(),
       firstName: $("#first-name").val(),
       lastName: $("#last-name").val(),
       email: $("#email").val(),
+      score: 0,
     };
-
-    let youCanGo = true;
+    let emailExists = false;
     if (users != null) {
-      //looping through the data to check if there's no user with this email
+      //looping through the data to check if there's any user with the same email
       users.forEach((user) => {
         if (user.email == newUser.email) {
-          youCanGo = false;
+          newUser = user;
+          emailExists = true;
         }
       });
-      if (youCanGo) {
-        users.push(newUser);
-      } else {
-        alert("This email is already in use!");
-        return;
-      }
-    } else {
+    }
+    if (!emailExists) {
       users.push(newUser);
     }
 
     //Updating local storage
     localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("status", JSON.stringify({ isSigned: true, currentUser: newUser }));
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
 
     //Closing the form and initializing the inputs
     $("#reg").removeClass("active");
@@ -49,8 +43,21 @@ $(document).ready(() => {
     $("#start").show();
   });
 
-  //ID genratot function
+  //ID generator
   const idGenerator = () => {
     return "u" + Math.random().toString(36).substr(2, 9);
+  };
+
+  //Img to Base64 converter
+  const imgConverter = (img) => {
+    var reader = new FileReader();
+    var imgBase64;
+    reader.readAsDataURL(img);
+    reader.onload = function () {
+      console.log(reader.result);
+    };
+    reader.onerror = function (error) {
+      alert("Error: ", error);
+    };
   };
 });
