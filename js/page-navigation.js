@@ -1,11 +1,50 @@
 $(document).ready(() => {
+  //Registering new user
+
+  let db = null;
+  const request = indexedDB.open("users", 1);
+
+  request.onupgradeneeded = (e) => {
+    db = e.target.result;
+    const users = db.createObjectStore("usersData", { keyPath: "id" });
+  };
+
+  request.onsuccess = (e) => {
+    db = e.target.result;
+  };
+
+  const addUser = (user) => {
+    const tx = db.transaction("usersData", "readwrite");
+    tx.onerror = (e) => alert("There was an error: " + e.target.errorCode);
+    const usersData = tx.objectStore("usersData");
+    usersData.add(user);
+  };
+
+  const getUsers = (success) => {
+    const tx = db.transaction("usersData", "readonly");
+    const usersData = tx.objectStore("usersData");
+    const request = usersData.openCursor();
+    request.onsuccess = (e) => {
+      const cursor = request.result || e.target.result;
+
+      if (cursor) {
+        success(cursor.value);
+        cursor.continue();
+      }
+    };
+  };
+
+  request.onerror = (e) => {
+    alert("There was an error: " + e.target.errorCode);
+  };
+
   //Page relocation
 
-  function defaultFunction(e) {
+  const defaultFunction = (e) => {
     e.preventDefault();
     $(".navbar__item").removeClass("active");
     $(e.currentTarget).parent().addClass("active");
-  }
+  };
 
   $("#page-settings").click((event) => {
     defaultFunction(event);
@@ -66,56 +105,42 @@ $(document).ready(() => {
 
   $("#page-rank").click((event) => {
     defaultFunction(event);
+    let users = [];
+
+    getUsers((user) => {
+      users.push(user);
+    });
+
+    
 
     $("#main").html(`
       <main class="rank">
       <div class="rank__container">
         <h1 class="h1">Best Players</h1>
-        <ul class="rank__list">
-          <li class="rank__item">
-            <div class="rank__item-container">
-              <img src="/img/animal-3.jpg" alt="User 1" />
-              <div class="rank__item-details">
-                <h3>Nicci Troiani</h3>
-                <p>nicci@gmail.com</p>
-              </div>
-            </div>
-            <h3 class="rank__item-score">Score: <span>456</span></h3>
-          </li>
-          <li class="rank__item">
-            <div class="rank__item-container">
-              <img src="/img/animal-2.jpg" alt="User 1" />
-              <div class="rank__item-details">
-                <h3>George Fields</h3>
-                <p>jack@gmail.com</p>
-              </div>
-            </div>
-            <h3 class="rank__item-score">Score: <span>358</span></h2>
-          </li>
-          <li class="rank__item">
-            <div class="rank__item-container">
-              <img src="/img/animal-4.jpg" alt="User 1" />
-              <div class="rank__item-details">
-                <h3>Jones Dermot</h3>
-                <p>dermot@gmail.com</p>
-              </div>
-            </div>
-            <h3 class="rank__item-score">Score: <span>211</span></h3>
-          </li>
-          <li class="rank__item">
-            <div class="rank__item-container">
-              <img src="/img/animal-1.jpg" alt="User 1" />
-              <div class="rank__item-details">
-                <h3>Jane Doe</h3>
-                <p>jane.doe@gmail.com</p>
-              </div>
-            </div>
-            <h3 class="rank__item-score">Score: <span>169</span></h2>
-          </li>
+        <ul class="rank__list"></ul>
         </ul>
       </div>
     </main>
     `);
+
+    setTimeout(() => {
+      users.sort((a, b) => {
+        return a.score + b.score;
+      });
+      
+      users.forEach((user) => {
+        $(".rank__list").append(`<li class="rank__item">
+                       <div class="rank__item-container">
+                         <img src="${user.avatar ? user.avatar : "/img/profile.png"}" alt="User 1" />
+                         <div class="rank__item-details">
+                           <h3>${user.firstName} ${user.lastName}</h3>
+                           <p>${user.email}</p>
+                         </div>
+                         </div>
+                         <h3 class="rank__item-score">Score: <span>${user.score}</span></h3>
+                       </li>`);
+      });
+    }, 100);
   });
 
   //Game start
@@ -172,7 +197,7 @@ $(document).ready(() => {
               <img src="/img/mask.png" alt="Mask">
             </div>
             <div class="game__card--back">
-              <img src="/img/animal-3.jpg" alt="Mask">
+              <img src="/img/animal-3.jpg" alt="Mask"> 
             </div>
           </div>
           <div class="game__card">

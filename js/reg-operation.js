@@ -30,6 +30,7 @@ $(document).ready(() => {
   initApp();
 
   //Registering new user
+
   let db = null;
   const request = indexedDB.open("users", 1);
 
