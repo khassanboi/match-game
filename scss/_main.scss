@@ -247,6 +247,14 @@
     text-align: center;
     cursor: pointer;
     fill: #757575;
+
+    img {
+      width: 70%;
+      height: auto;
+      cursor: pointer;
+      position: relative;
+      border-radius: 50%;
+    }
   }
 
   &__buttons {

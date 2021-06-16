@@ -34,8 +34,19 @@ $(document).ready(() => {
     }
   };
 
-  //Enable/disable submitting button
+  //Executing validation function
   $(".reg__input").change((event) => {
+    setTimeout(() => {
+      validateForm(event.target);
+      if ($("#first-name").parent().hasClass("valid") && $("#last-name").parent().hasClass("valid") && $("#email").parent().hasClass("valid")) {
+        $("#add-user").removeClass("disabled");
+      } else {
+        $("#add-user").addClass("disabled");
+      }
+    }, 100);
+  });
+
+  $(".reg__input").keydown((event) => {
     setTimeout(() => {
       validateForm(event.target);
       if ($("#first-name").parent().hasClass("valid") && $("#last-name").parent().hasClass("valid") && $("#email").parent().hasClass("valid")) {

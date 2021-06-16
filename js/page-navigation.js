@@ -4,7 +4,6 @@ $(document).ready(() => {
   function defaultFunction(e) {
     e.preventDefault();
     $(".navbar__item").removeClass("active");
-    console.log($(e.currentTarget).parent());
     $(e.currentTarget).parent().addClass("active");
   }
 
@@ -119,7 +118,8 @@ $(document).ready(() => {
     `);
   });
 
-  $("#page-game").click((event) => {
+  //Game start
+  $("#start").click((event) => {
     defaultFunction(event);
 
     $("#main").html(`
@@ -227,5 +227,14 @@ $(document).ready(() => {
       </div>
     </main>
     `);
+
+    $(".game__card").click((e) => {
+      console.log("turned");
+      $(e.currentTarget).addClass("turned");
+      setTimeout(() => {
+        $(e.currentTarget).removeClass("turned");
+        console.log("returned");
+      }, 2000);
+    });
   });
 });
