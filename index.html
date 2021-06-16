@@ -11,13 +11,13 @@
   </head>
   <body>
     <header class="header">
+      <div class="header__item">
+        <div class="header__item--logo">
+          <span class="logo-top">Match</span>
+          <span class="logo-bottom">Match</span>
+        </div>  
+      </div>
       <nav class="navbar">
-        <div class="navbar__item">
-          <div class="navbar__item--logo">
-            <span class="logo-top">Match</span>
-            <span class="logo-bottom">Match</span>
-          </div>  
-        </div>
         <div class="navbar__item active">
           <a href="/" id="page-home" data-value="home">
             <svg>
@@ -42,11 +42,15 @@
             <h4>Game Settings</h4>
           </a>
         </div>
-        <div class="navbar__item">
-          <a href="#" class="btn btn--ghost" id="register">Register New Player</a>
-          <a href="#" class="btn btn--ghost" id="start">Start Game</a>
-        </div>
       </nav>
+      <div class="header__item">
+        <a href="#" class="btn btn--ghost" id="register">Register New Player</a>
+        <a href="#" class="btn btn--ghost" id="start">Start Game</a>
+        <a href="#" class="btn btn--ghost" id="quit">Quit</a>
+        <span class="profile-avatar">
+          <img src="/img/profile.png" alt="User Avatar">
+        </span>
+      </div>
     </header>
     <main id="main">
       <main class="instr">

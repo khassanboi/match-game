@@ -1,6 +1,35 @@
 $(document).ready(() => {
-  //Registering new user
+  let isSigned = false;
 
+  const initApp = () => {
+    const currentUser = localStorage.getItem("currentUser");
+    if (currentUser) {
+      isSigned = true;
+    } else {
+      isSigned = false;
+    }
+
+    if (isSigned) {
+      $("#register").hide();
+      $("#start").show();
+      $("#quit").show();
+      $(".profile-avatar").show();
+      if (JSON.parse(currentUser).avatar) {
+        $(".profile-avatar img").attr("src", JSON.parse(currentUser).avatar);
+      } else {
+        $(".profile-avatar img").attr("src", "/img/profile.png");
+      }
+    } else {
+      $("#register").show();
+      $("#start").hide();
+      $("#quit").hide();
+      $(".profile-avatar").hide();
+    }
+  };
+
+  initApp();
+
+  //Registering new user
   let db = null;
   const request = indexedDB.open("users", 1);
 
@@ -49,9 +78,13 @@ $(document).ready(() => {
       users.push(user);
     });
 
-    avatar = imgConverter(imgToBlob($("#avatar").prop("files")[0]), (base64) => {
-      avatar = base64.toString();
-    });
+    if ($("#avatar").prop("files").length != 0) {
+      avatar = imgConverter(imgToBlob($("#avatar").prop("files")[0]), (base64) => {
+        avatar = base64.toString();
+      });
+    } else {
+      avatar = null;
+    }
 
     setTimeout(() => {
       let newUser = {
@@ -84,12 +117,17 @@ $(document).ready(() => {
       //Closing the form and initializing the inputs
       $("#reg").removeClass("active");
       $(".reg__input").val("");
+      $("#avatar-image").attr("src", "/img/profile.png");
       $(".reg__input").parent().removeClass("valid");
 
       //Updating UI
-      $("#register").remove();
-      $("#start").show();
+      initApp();
     }, 200);
+  });
+
+  $("#quit").click((e) => {
+    localStorage.removeItem("currentUser");
+    initApp();
   });
 
   $("#avatar").change((e) => {
