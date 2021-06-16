@@ -1,128 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Match-Game</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/style.min.css" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="header__item">
-        <div class="header__item--logo">
-          <span class="logo-top">Match</span>
-          <span class="logo-bottom">Match</span>
-        </div>  
-      </div>
-      <nav class="navbar">
-        <div class="navbar__item active">
-          <a href="/" id="page-home" data-value="home">
-            <svg>
-              <use xlink:href="/fonts/symbol-defs.svg#i-about"></use>
-            </svg>
-            <h4>About Game</h4>
-          </a>
-        </div>
-        <div class="navbar__item">
-          <a href="/" id="page-rank" data-value="rank">
-            <svg>
-              <use xlink:href="/fonts/symbol-defs.svg#i-star"></use>
-            </svg>
-            <h4>Best Score</h4>
-          </a>
-        </div>
-        <div class="navbar__item">
-          <a href="/" id="page-settings" data-value="settings">
-            <svg>
-              <use xlink:href="/fonts/symbol-defs.svg#i-settings"></use>
-            </svg>
-            <h4>Game Settings</h4>
-          </a>
-        </div>
-      </nav>
-      <div class="header__item">
-        <a href="#" class="btn btn--ghost" id="register">Register New Player</a>
-        <a href="#" class="btn btn--ghost" id="start">Start Game</a>
-        <a href="#" class="btn btn--ghost" id="quit">Quit</a>
-        <span class="profile-avatar">
-          <img src="/img/profile.png" alt="User Avatar">
-        </span>
-      </div>
-    </header>
-    <main id="main">
-      <main class="instr">
-      <h1 class="h1">How to play?</h1>
-      <section class="instr__item">
-        <div class="instr__content">
-          <span class="instr__number">1</span>
-          <p class="instr__text">Register new player in game</p>
-        </div>
-        <img src="/img/instr-1.png" class="instr__img"></img>
-      </section>
-      <section class="instr__item">
-        <div class="instr__content">
-          <span class="instr__number">2</span>
-          <p class="instr__text">Configure your game settings</p>
-        </div>
-        <img src="/img/instr-2.png" class="instr__img"></img>
-      </section>
-      <section class="instr__item">
-        <div class="instr__content">
-          <span class="instr__number">3</span>
-          <p class="instr__text">Start your new game!</p>
-        </div>
-        <img src="/img/instr-3.png" class="instr__img"></img>
-      </section>
-      </main>
-    </main>
-    <section class="reg" id="reg"> <!-- add "active" class-name to make it visible -->
-        <div class="reg__window">
-          <h1 class="h1">Register new Player</h1>
-          <div class="reg__form">
-            <div class="reg__form--main" action="#">
-              <label for="first-name" class="reg__label">
-                First Name
-                <input type="text" id="first-name" name="first-name" class="reg__input">
-                <svg class="visible">
-                  <use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
-                </svg>
-              </label>
-              <label for="last-name" class="reg__label">
-                Last Name
-                <input type="text" id="last-name" name="last-name" class="reg__input">
-                <svg class="visible">
-                  <use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
-                </svg>
-              </label>
-              <label for="email" class="reg__label">
-                E-mail
-                <input type="email" id="email" name="email" class="reg__input">
-                <svg class="visible">
-                  <use xlink:href="/fonts/symbol-defs.svg#i-tick"></use>
-                </svg>
-              </label>
-            </div>
-            <div class="reg__form--avatar">
-              <label for="avatar">
-                <input type="file" id="avatar" class="reg__input" accept="image/png, image/jpg, image/jpeg">
-                <img src="/img/profile.png" id="avatar-image" alt="Profile Icon">
-              </label>
-            </div>
-            
-            <div class="reg__buttons">
-              <a href="/" class="btn btn--dark disabled" id="add-user">Add User</a>
-              <a href="/" class="btn btn--light" id="cancel-reg">Cancel</a>
-            </div>
-          </div>
-        </div>
-      </section>
-  </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="/js/page-navigation.js"></script>
-  <script src="/js/reg-form.js"></script>
-  <script src="/js/reg-operation.js"></script>
-  <script src="/js/game.js"></script>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Match-Game</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.min.css" />
+</head>
+
+<body id="app"></body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/page-navigation.js"></script>
+<script src="/js/reg-form.js"></script>
+<script src="/js/reg-operation.js"></script>
+<script src="/js/game.js"></script>
+
 </html>
