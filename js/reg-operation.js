@@ -1,12 +1,54 @@
 $(document).ready(() => {
   //Registering new user
+
+  let db = null;
+  const request = indexedDB.open("users", 1);
+
+  request.onupgradeneeded = (e) => {
+    db = e.target.result;
+    const users = db.createObjectStore("usersData", { keyPath: "id" });
+  };
+
+  request.onsuccess = (e) => {
+    db = e.target.result;
+  };
+
+  const addUser = (user) => {
+    const tx = db.transaction("usersData", "readwrite");
+    tx.onerror = (e) => alert("There was an error: " + e.target.errorCode);
+    const usersData = tx.objectStore("usersData");
+    usersData.add(user);
+  };
+
+  const getUsers = (success) => {
+    const tx = db.transaction("usersData", "readonly");
+    const usersData = tx.objectStore("usersData");
+    const request = usersData.openCursor();
+    request.onsuccess = (e) => {
+      const cursor = request.result || e.target.result;
+
+      if (cursor) {
+        success(cursor.value);
+        cursor.continue();
+      }
+    };
+  };
+
+  request.onerror = (e) => {
+    alert("There was an error: " + e.target.errorCode);
+  };
+
   $("#add-user").click((e) => {
     e.preventDefault();
+    localStorage.removeItem("currentUser");
 
     let users = [];
-    if (localStorage.getItem("users")) {
-      JSON.parse(localStorage.getItem("users")).forEach((user) => users.push(user));
-    }
+
+    getUsers((user) => {
+      users.push(user);
+    });
+
+    console.log(users);
 
     let newUser = {
       id: idGenerator(),
@@ -15,8 +57,10 @@ $(document).ready(() => {
       email: $("#email").val(),
       score: 0,
     };
+
     let emailExists = false;
-    if (users != null) {
+    //Adding to IndexedDb if email doesn't exist
+    if (users) {
       //looping through the data to check if there's any user with the same email
       users.forEach((user) => {
         if (user.email == newUser.email) {
@@ -26,11 +70,10 @@ $(document).ready(() => {
       });
     }
     if (!emailExists) {
-      users.push(newUser);
+      addUser(newUser);
     }
 
-    //Updating local storage
-    localStorage.setItem("users", JSON.stringify(users));
+    //Setting the current user
     localStorage.setItem("currentUser", JSON.stringify(newUser));
 
     //Closing the form and initializing the inputs
