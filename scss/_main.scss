@@ -363,6 +363,10 @@
       }
     }
 
+    &.turned {
+      pointer-events: none;
+    }
+
     &.turned &--front {
       transform: rotateY(-180deg);
     }

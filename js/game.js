@@ -5,22 +5,23 @@ $(document).ready(() => {
     $(".navbar__item").removeClass("active");
     $(e.currentTarget).parent().addClass("active");
 
-    const gameModeSetup = (grid) => {
+    let gridSize = 4;
+    let pairs = (gridSize * gridSize) / 2;
+
+    const gameModeSetup = () => {
       let cardIndexes = [];
 
-      for (let i = 0; i < (grid * grid) / 2; i++) {
+      for (let i = 0; i < pairs; i++) {
         cardIndexes.push(i + 1, i + 1);
       }
 
       return cardIndexes.sort((a, b) => 0.5 - Math.random());
     };
 
-    let gridSize = 4;
-
     $("#main").html(`
       <main class="game">
         <div class="game__container">
-          <div class="game__timer">00:01</div>
+          <div class="game__timer">00:00</div>
           <div class="game__cards">
            
           </div>
@@ -44,6 +45,27 @@ $(document).ready(() => {
 
       let cardsTurned = 0;
       let cards = [];
+      let secondsSpent = 0;
+      let turns = {
+        correct: 0,
+        incorrect: 0,
+        score() {
+          return (this.correct + this.incorrect - this.incorrect) * 100 - secondsSpent * 10;
+        },
+      };
+
+      const checkIfComplete = () => {
+        if (pairs > turns.correct) {
+          return;
+        } else if (pairs == turns.correct) {
+          clearInterval(timer);
+          if (confirm(`You have completed the game. Your score is: ${turns.score()} Would you like to play once more?`)) {
+            $("#start").trigger("click");
+          } else {
+            $("#page-home").trigger("click");
+          }
+        }
+      };
 
       $(".game__card").click((e) => {
         if (cardsTurned < 2) {
@@ -54,17 +76,37 @@ $(document).ready(() => {
           if (cardsTurned == 2 && cards[0].attr("data-id") != cards[1].attr("data-id")) {
             setTimeout(() => {
               $(".game__card").not(".correct").removeClass("turned");
+
               cardsTurned = 0;
               cards = [];
-            }, 800);
+            }, 1000);
+            turns.incorrect++;
           } else if (cardsTurned == 2 && cards[0].attr("data-id") == cards[1].attr("data-id")) {
-            cardsTurned = 0;
             cards[0].addClass("correct");
             cards[1].addClass("correct");
+
+            cardsTurned = 0;
             cards = [];
+            turns.correct++;
+            setTimeout(() => {
+              checkIfComplete();
+            }, 100);
           }
         }
+        console.log(turns.score());
       });
+
+      let startTime = Date.now();
+      const timer = setInterval(function () {
+        let delta = Date.now() - startTime; // milliseconds elapsed since start
+        secondsSpent = Math.floor(delta / 1000);
+        // alternatively just show wall clock time:
+        $(".game__timer").text(
+          `${new Date(delta).getMinutes() < 10 ? "0" : ""}${new Date(delta).getMinutes()}:${new Date(delta).getSeconds() < 10 ? "0" : ""}${new Date(
+            delta
+          ).getSeconds()}`
+        );
+      }, 100);
     }, 100);
   });
 });
