@@ -2,6 +2,33 @@ $(document).ready(() => {
   //Game start
   $("#start").click((e) => {
     e.preventDefault();
+
+    //Current User
+    let user = JSON.parse(localStorage.getItem("currentUser"));
+
+    // IndexedDb Request to update score
+    let db = null;
+    const request = indexedDB.open("users", 1);
+
+    request.onupgradeneeded = (e) => {
+      db = e.target.result;
+    };
+
+    request.onsuccess = (e) => {
+      db = e.target.result;
+    };
+
+    request.onerror = (e) => {
+      alert("There was an error: " + e.target.errorCode);
+    };
+
+    const updateScore = (user) => {
+      const tx = db.transaction("usersData", "readwrite");
+      tx.onerror = (e) => alert("There was an error: " + e.target.errorCode);
+      const usersData = tx.objectStore("usersData");
+      usersData.put(user);
+    };
+
     $(".navbar__item").removeClass("active");
     $(e.currentTarget).parent().addClass("active");
 
@@ -59,6 +86,8 @@ $(document).ready(() => {
           return;
         } else if (pairs == turns.correct) {
           clearInterval(timer);
+          user.score += turns.score();
+          updateScore(user);
           if (confirm(`You have completed the game. Your score is: ${turns.score()} Would you like to play once more?`)) {
             $("#start").trigger("click");
           } else {
