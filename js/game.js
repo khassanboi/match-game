@@ -77,7 +77,9 @@ $(document).ready(() => {
         correct: 0,
         incorrect: 0,
         score() {
-          return (this.correct + this.incorrect - this.incorrect) * 100 - secondsSpent * 10;
+          return (this.correct + this.incorrect - this.incorrect) * 100 - secondsSpent * 10 > 0
+            ? (this.correct + this.incorrect - this.incorrect) * 100 - secondsSpent * 10
+            : 0;
         },
       };
 
@@ -103,9 +105,12 @@ $(document).ready(() => {
           cardsTurned++;
 
           if (cardsTurned == 2 && cards[0].attr("data-id") != cards[1].attr("data-id")) {
+            cards[0].addClass("incorrect");
+            cards[1].addClass("incorrect");
             setTimeout(() => {
               $(".game__card").not(".correct").removeClass("turned");
-
+              cards[0].removeClass("incorrect");
+              cards[1].removeClass("incorrect");
               cardsTurned = 0;
               cards = [];
             }, 1000);
@@ -136,6 +141,11 @@ $(document).ready(() => {
           ).getSeconds()}`
         );
       }, 100);
+
+      $("#quit").click((e) => {
+        $("#page-home").trigger("click");
+        clearInterval(timer);
+      });
     }, 100);
   });
 });
