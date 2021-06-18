@@ -148,7 +148,7 @@ $(document).ready(() => {
       });
 
       let startTime = Date.now();
-      const timer = setInterval(function () {
+      window.timer = window.setInterval(function () {
         let delta = Date.now() - startTime; // milliseconds elapsed since start
         secondsSpent = Math.floor(delta / 1000);
         // alternatively just show wall clock time:
@@ -161,7 +161,6 @@ $(document).ready(() => {
 
       $("#quit").click((e) => {
         $("#page-home").trigger("click");
-        clearInterval(timer);
       });
     }, 100);
   });

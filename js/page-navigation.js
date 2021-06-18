@@ -147,6 +147,7 @@ $(document).ready(() => {
     e.preventDefault();
     $(".navbar__item").removeClass("active");
     $(e.currentTarget).parent().addClass("active");
+    window.clearInterval(window.timer);
   };
 
   $("#page-settings").click((event) => {
