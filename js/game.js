@@ -110,7 +110,7 @@ $(document).ready(() => {
           if (confirm(`You have completed the game. Your score is: ${turns.score()} Would you like to play once more?`)) {
             $("#start").trigger("click");
           } else {
-            $("#page-home").trigger("click");
+            $("#page-rank").trigger("click");
           }
         }
       };
