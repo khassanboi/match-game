@@ -8,7 +8,7 @@ $(document).ready(() => {
 
     // IndexedDb Request to update score
     let db = null;
-    const request = indexedDB.open("users", 1);
+    const request = indexedDB.open("khassanboi", 1);
 
     request.onupgradeneeded = (e) => {
       db = e.target.result;
@@ -32,14 +32,26 @@ $(document).ready(() => {
     $(".navbar__item").removeClass("active");
     $(e.currentTarget).parent().addClass("active");
 
-    let gridSize = 4;
+    let gridSize = $("#difficulty").val() ? $("#difficulty").val() : 4;
+    let cardType = $("#card-type").val() ? $("#card-type").val() : "animal";
+
     let pairs = (gridSize * gridSize) / 2;
 
     const gameModeSetup = () => {
       let cardIndexes = [];
 
-      for (let i = 0; i < pairs; i++) {
-        cardIndexes.push(i + 1, i + 1);
+      if (gridSize == 4) {
+        for (let i = 0; i < 8; i++) {
+          cardIndexes.push(i + 1, i + 1);
+        }
+      } else if (gridSize == 6) {
+        for (let i = 0; i < 9; i++) {
+          cardIndexes.push(i + 1, i + 1, i + 1, i + 1);
+        }
+      } else if (gridSize == 8) {
+        for (let i = 0; i < 8; i++) {
+          cardIndexes.push(i + 1, i + 1, i + 1, i + 1, i + 1, i + 1, i + 1, i + 1);
+        }
       }
 
       return cardIndexes.sort((a, b) => 0.5 - Math.random());
@@ -57,17 +69,22 @@ $(document).ready(() => {
     `);
 
     setTimeout(() => {
-      gameModeSetup(gridSize).forEach((i) => {
+      gameModeSetup().forEach((i) => {
         $(".game__cards").append(`
                 <div class="game__card" data-id="photo${i}">
                   <div class="game__card--front">
                     <img src="/img/mask.png" alt="Mask">
                   </div>
                   <div class="game__card--back">
-                    <img src="/img/animal-${i}.jpg" alt="Mask">
+                    <img src="/img/card-images/${cardType}-${i}.jpg" alt="Mask">
                   </div>
                 </div>
               `);
+      });
+
+      $(".game__cards").css({
+        "grid-template-columns": "repeat(" + gridSize + ", 15%)",
+        "grid-template-rows": "repeat(" + gridSize + ", 15%)",
       });
 
       let cardsTurned = 0;

@@ -123,13 +123,6 @@ $(document).ready(() => {
     db = e.target.result;
   };
 
-  const addUser = (user) => {
-    const tx = db.transaction("usersData", "readwrite");
-    tx.onerror = (e) => alert("There was an error: " + e.target.errorCode);
-    const usersData = tx.objectStore("usersData");
-    usersData.add(user);
-  };
-
   const getUsers = (success) => {
     const tx = db.transaction("usersData", "readonly");
     const usersData = tx.objectStore("usersData");
@@ -162,12 +155,11 @@ $(document).ready(() => {
     $("#main").html(`
 <main class="settings">
   <div class="settings__container">
-    <label class="h1" for="cards">Game Cards</label>
-    <select name="cards" id="cards" class="settings__input">
+    <label class="h1" for="card-type">Game Cards</label>
+    <select name="card-type" id="card-type" class="settings__input">
       <option value="" selected>select game cards type</option>
-      <option value="animals">Animals</option>
-      <option value="cars">Cars</option>
-      <option value="cities">Cities</option>
+      <option value="animal">Animals</option>
+      <option value="flag">Flags</option>
     </select>
 
     <label class="h1" for="difficulty">Difficulty</label>
@@ -232,21 +224,26 @@ $(document).ready(() => {
 `);
 
     setTimeout(() => {
-      users.sort((a, b) => {
-        return a.score + b.score;
+      users.sort(function (x, y) {
+        return y.score - x.score;
       });
-
-      users.forEach((user) => {
-        $(".rank__list").append(`<li class="rank__item">
-  <div class="rank__item-container">
-    <img src="${user.avatar ? user.avatar : " /img/profile.png"}" alt="User 1" />
-    <div class="rank__item-details">
-      <h3>${user.firstName} ${user.lastName}</h3>
-      <p>${user.email}</p>
-    </div>
-  </div>
-  <h3 class="rank__item-score">Score: <span>${user.score}</span></h3>
-</li>`);
+      let i = 0;
+      users.every((user) => {
+        if (i >= 10) {
+          return false;
+        } else {
+          $(".rank__list").append(`<li class="rank__item">
+                                    <div class="rank__item-container">
+                                      <img src="${user.avatar ? user.avatar : " /img/profile.png"}" alt="User 1" />
+                                      <div class="rank__item-details">
+                                        <h3>${user.firstName} ${user.lastName}</h3>
+                                        <p>${user.email}</p>
+                                      </div>
+                                    </div>
+                                    <h3 class="rank__item-score">Score: <span>${user.score}</span></h3>
+                                  </li>`);
+          return true;
+        }
       });
     }, 100);
   });

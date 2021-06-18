@@ -32,7 +32,7 @@ $(document).ready(() => {
   //Registering new user
 
   let db = null;
-  const request = indexedDB.open("users", 1);
+  const request = indexedDB.open("khassanboi", 1);
 
   request.onupgradeneeded = (e) => {
     db = e.target.result;
@@ -93,7 +93,7 @@ $(document).ready(() => {
         firstName: $("#first-name").val(),
         lastName: $("#last-name").val(),
         email: $("#email").val(),
-        score: 0,
+        score: 1,
         avatar: avatar,
       };
 
