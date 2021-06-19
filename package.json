@@ -23,6 +23,7 @@
   "homepage": "https://github.com/khassanboi/match-game#readme",
   "dependencies": {
     "eslint": "^7.27.0",
+    "path": "^0.12.7",
     "webpack": "^5.39.1",
     "webpack-cli": "^4.7.2"
   },
