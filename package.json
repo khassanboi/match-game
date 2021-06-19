@@ -4,7 +4,8 @@
   "description": "A game of  matching pairs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,14 @@
   },
   "homepage": "https://github.com/khassanboi/match-game#readme",
   "dependencies": {
-    "eslint": "^7.27.0"
+    "eslint": "^7.27.0",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2"
+  },
+  "devDependencies": {
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.4"
   }
 }
