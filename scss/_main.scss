@@ -181,14 +181,10 @@
   width: 100%;
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.25);
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
-
-  &.active {
-    display: flex;
-  }
 
   &__window {
     width: 64rem;
