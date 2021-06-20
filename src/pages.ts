@@ -12,7 +12,7 @@ export function setTemplate() {
         </div>
         <nav class="navbar">
           <div class="navbar__item active">
-            <a href="#" class="page-render" data-value="about">
+            <a href="#" class="page-render" id="page-about" data-value="about">
               <svg>
                 <use xlink:href="/fonts/symbol-defs.svg#i-about"></use>
               </svg>
@@ -41,7 +41,7 @@ export function setTemplate() {
           <a href="#" class="btn btn--ghost page-render signed-in" data-value="game" id="start">Start Game</a>
           <a href="#" class="btn btn--ghost signed-in" id="quit">Quit</a>
           <span class="profile-avatar signed-in">
-            <img src="/img/profile.png" alt="User Avatar">
+            <img src="/img/profile.png" alt="User Avatar" id="profile-avatar">
           </span>
         </div>
       </header>
@@ -184,10 +184,9 @@ export function renderPage(page: "about" | "ranking" | "settings" | "game" | "re
     });
   } else if (page === "reg") {
     document.getElementById("app").insertAdjacentHTML(
-      
       "beforeend",
- 
-          `
+
+      `
       <section class="reg" id="reg-window">
         <!-- add "active" class-name to make it visible -->
         <div class="reg__window">
@@ -230,7 +229,6 @@ export function renderPage(page: "about" | "ranking" | "settings" | "game" | "re
         </div>
       </section>
     `
-    
     );
   }
 }

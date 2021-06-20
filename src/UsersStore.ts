@@ -45,7 +45,8 @@ export default class UsersStore {
     };
 
     setTimeout(() => {
-      const tx = db.transaction("usersData", "readonly");
+
+      const tx = method == "getUsers" ? db.transaction("usersData", "readonly") : db.transaction("usersData", "readwrite");
       tx.onerror = (e) => alert("There was an error: " + e.target.errorCode);
       const usersData = tx.objectStore("usersData");
 

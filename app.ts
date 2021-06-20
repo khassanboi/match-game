@@ -1,5 +1,6 @@
 //importing
-import { setTemplate, renderPage } from "./src/routing.js";
+import { generateUserID, imgToBase64Converter, imgToBlobConverter, formValidator } from "./src/utils.js";
+import { setTemplate, renderPage } from "./src/pages.js";
 import UsersStore, { User } from "./src/UsersStore.js";
 
 //interfaces
@@ -66,9 +67,89 @@ document.querySelectorAll(".page-render").forEach((btn) => {
 document.getElementById("register").addEventListener("click", () => {
   renderPage("reg");
 
+  document.querySelectorAll(".reg__input").forEach((input) => {
+    if (input.getAttribute("type") == "file") {
+      input.addEventListener("change", () => {
+        document
+          .getElementById("avatar-image")
+          .setAttribute("src", URL.createObjectURL(imgToBlobConverter((document.getElementById("avatar") as HTMLInputElement).files[0])));
+      });
+    } else {
+      ["change", "keydown"].forEach((evt) => {
+        input.addEventListener(evt, () => {
+          setTimeout(() => {
+            formValidator(input);
+            let formIsValid: boolean = true;
+            document.querySelectorAll(".reg__input:not(#avatar)").forEach((inp) => {
+              formIsValid = inp.parentElement.classList.contains("valid");
+            });
+            if (formIsValid) {
+              document.getElementById("add-user").classList.remove("disabled");
+            } else {
+              document.getElementById("add-user").classList.add("disabled");
+            }
+          }, 100);
+        });
+      });
+    }
+  });
+
   document.getElementById("cancel-reg").addEventListener("click", () => {
     document.getElementById("app").removeChild(document.getElementById("reg-window"));
   });
+
+  document.getElementById("add-user").addEventListener("click", () => {
+    const usersStore = new UsersStore();
+    let users: User[] = usersStore._getAllUsers();
+    let avatar: string | null;
+
+    if ((document.getElementById("avatar") as HTMLInputElement).files.length != 0) {
+      imgToBase64Converter(imgToBlobConverter((document.getElementById("avatar") as HTMLInputElement).files[0]), (base64) => {
+        avatar = base64.toString();
+      });
+    } else {
+      avatar = null;
+    }
+
+    setTimeout(() => {
+      let newUser: User = {
+        id: generateUserID(),
+        firstName: (document.getElementById("first-name") as HTMLInputElement).value,
+        lastName: (document.getElementById("last-name") as HTMLInputElement).value,
+        email: (document.getElementById("email") as HTMLInputElement).value,
+        score: 0,
+        avatar: avatar,
+      };
+
+      let emailExists: boolean = false;
+      //Adding to IndexedDb if email doesn't exist
+      if (users) {
+        //looping through the data to check if there's any user with the same email
+        users.forEach((user) => {
+          if (user.email == newUser.email) {
+            newUser = user;
+            emailExists = true;
+          }
+        });
+      }
+      if (!emailExists) {
+        usersStore._addUser(newUser);
+      } else {
+      }
+
+      //Setting the current user
+      localStorage.setItem("currentUser", JSON.stringify(newUser));
+
+      document.getElementById("app").removeChild(document.getElementById("reg-window"));
+      initUI();
+    }, 1000);
+  });
+});
+
+document.getElementById("quit").addEventListener("click", () => {
+  localStorage.removeItem("currentUser");
+  document.getElementById("page-about").click();
+  initUI();
 });
 
 //game operation and logic
@@ -166,7 +247,8 @@ function startGame() {
 }
 
 function initUI() {
-  if (localStorage.getItem("currentUser") == null) {
+  const currentUser = localStorage.getItem("currentUser");
+  if (currentUser == null) {
     document.querySelectorAll(".signed-in").forEach((item) => {
       (item as HTMLElement).style.display = "none";
     });
@@ -176,5 +258,8 @@ function initUI() {
       (item as HTMLElement).style.display = "inline-block";
     });
     (document.querySelector(".not-signed-in") as HTMLElement).style.display = "none";
+    JSON.parse(currentUser).avatar
+      ? document.getElementById("profile-avatar").setAttribute("src", JSON.parse(currentUser).avatar)
+      : document.getElementById("profile-avatar").setAttribute("src", "/img/profile.png");
   }
 }
