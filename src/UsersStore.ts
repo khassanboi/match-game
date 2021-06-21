@@ -9,49 +9,56 @@ export interface User {
 
 export default class UsersStore {
   // methods
-  _getAllUsers(): User[] {
-    let users: User[] = [];
+  getAllUsers(): User[] {
+    const users: User[] = [];
 
-    this._operationWithDB("getUsers", undefined, (user) => {
+    this.operationWithDB("getUsers", undefined, (user) => {
       users.push(user);
     });
 
     return users;
   }
 
-  _addUser(newUser: User): void {
-    this._operationWithDB("addUser", newUser);
+  addUser(newUser: User): void {
+    this.operationWithDB("addUser", newUser);
   }
 
-  _updateScore(currentUser: User): void {
-    this._operationWithDB("updateScore", currentUser);
+  updateScore(currentUser: User): void {
+    this.operationWithDB("updateScore", currentUser);
   }
 
-  private _operationWithDB(method: "getUsers" | "addUser" | "updateScore", user?: User, success?: (User) => void): void {
+  private operationWithDB = (
+    method: "getUsers" | "addUser" | "updateScore",
+    user?: User,
+    success?: (User) => void
+  ): void => {
     let db = null;
     const req = indexedDB.open("khassanboi", 1);
 
-    req.onupgradeneeded = async (e) => {
+    req.onupgradeneeded = async () => {
       db = await req.result;
-      const users = db.createObjectStore("usersData", { keyPath: "id" });
+      db.createObjectStore("usersData", { keyPath: "id" });
     };
 
-    req.onsuccess = async (e) => {
+    req.onsuccess = async () => {
       db = await req.result;
 
-      const tx = method == "getUsers" ? db.transaction("usersData", "readonly") : db.transaction("usersData", "readwrite");
-      tx.onerror = (e) => alert("There was an error: " + e.target.errorCode);
+      const tx =
+        method === "getUsers"
+          ? db.transaction("usersData", "readonly")
+          : db.transaction("usersData", "readwrite");
+      tx.onerror = (e) => alert(`There was an error: ${e.target.errorCode}`);
       const usersData = tx.objectStore("usersData");
 
       if (method === "getUsers") {
         const creq = usersData.openCursor();
 
-        creq.onsuccess = (e) => {
-          const cursor = creq.result || e.target.result;
+        creq.onsuccess = (event) => {
+          const cursor = creq.result || event.target.result;
 
           if (cursor) {
-            const user: User = cursor.value;
-            success(user);
+            const userCursor: User = cursor.value;
+            success(userCursor);
             cursor.continue();
           }
         };
@@ -62,8 +69,8 @@ export default class UsersStore {
       }
     };
 
-    req.onerror = (e) => {
+    req.onerror = () => {
       alert("ERROR");
     };
-  }
+  };
 }

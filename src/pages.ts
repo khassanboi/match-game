@@ -1,8 +1,7 @@
-import UsersStore from "./UsersStore.js";
-import User from "./UsersStore.js";
+import UsersStore from './UsersStore.js';
 
 export function setTemplate() {
-  document.getElementById("app").innerHTML = `
+  document.getElementById('app').innerHTML = `
       <header class="header">
         <div class="header__item">
           <div class="header__item--logo">
@@ -50,13 +49,11 @@ export function setTemplate() {
 }
 
 export async function renderPage(
-  page: "about" | "ranking" | "settings" | "game" | "reg",
-  gameSettings?: { gridSize: number; cardType: string }
+  page: 'about' | 'ranking' | 'settings' | 'game' | 'reg',
+  gameSettings?: { gridSize: number; cardType: string },
 ): Promise<void> {
-  let content: string = ``;
-
-  if (page === "about") {
-    document.getElementById("main").innerHTML = `
+  if (page === 'about') {
+    document.getElementById('main').innerHTML = `
           <main class="instr">
             <h1 class="h1">How to play?</h1>
             <section class="instr__item">
@@ -82,10 +79,10 @@ export async function renderPage(
             </section>
           </main>
       `;
-  } else if (page === "ranking") {
-    let users = await new UsersStore()._getAllUsers();
+  } else if (page === 'ranking') {
+    const users = await new UsersStore().getAllUsers();
 
-    document.getElementById("main").innerHTML = `
+    document.getElementById('main').innerHTML = `
         <main class="rank">
           <div class="rank__container">
             <h1 class="h1">Best Players</h1>
@@ -96,14 +93,12 @@ export async function renderPage(
 
     setTimeout(() => {
       users
-        .sort(function (x, y) {
-          return y.score - x.score;
-        })
+        .sort((x, y) => y.score - x.score)
         .forEach((user) => {
-          document.getElementById("rank-list").innerHTML += `
+          document.getElementById('rank-list').innerHTML += `
           <li class="rank__item">
             <div class="rank__item-container">
-              <img src="${user.avatar ? user.avatar : " /img/profile.png"}" alt="User 1" />
+              <img src="${user.avatar ? user.avatar : ' /img/profile.png'}" alt="User 1" />
                 <div class="rank__item-details">
                   <h3>${user.firstName} ${user.lastName}</h3>
                   <p>${user.email}</p>
@@ -113,8 +108,8 @@ export async function renderPage(
           </li>`;
         });
     }, 100);
-  } else if (page === "settings") {
-    document.getElementById("main").innerHTML = `
+  } else if (page === 'settings') {
+    document.getElementById('main').innerHTML = `
         <main class="settings">
           <div class="settings__container">
             <label class="h1" for="card-type">Game Cards</label>
@@ -134,29 +129,28 @@ export async function renderPage(
           </div>
         </main>
       `;
-  } else if (page === "game") {
-    const pairs: number = (gameSettings.gridSize * gameSettings.gridSize) / 2;
+  } else if (page === 'game') {
     const gameModeSetup = () => {
-      let cardIndexes: number[] = [];
+      const cardIndexes: number[] = [];
 
-      if (gameSettings.gridSize == 4) {
-        for (let i = 0; i < 8; i++) {
+      if (gameSettings.gridSize === 4) {
+        for (let i = 0; i < 8; i += 1) {
           cardIndexes.push(i + 1, i + 1);
         }
-      } else if (gameSettings.gridSize == 6) {
-        for (let i = 0; i < 9; i++) {
+      } else if (gameSettings.gridSize === 6) {
+        for (let i = 0; i < 9; i += 1) {
           cardIndexes.push(i + 1, i + 1, i + 1, i + 1);
         }
-      } else if (gameSettings.gridSize == 8) {
-        for (let i = 0; i < 8; i++) {
+      } else if (gameSettings.gridSize === 8) {
+        for (let i = 0; i < 8; i += 1) {
           cardIndexes.push(i + 1, i + 1, i + 1, i + 1, i + 1, i + 1, i + 1, i + 1);
         }
       }
 
-      return cardIndexes.sort((a, b) => 0.5 - Math.random());
+      return cardIndexes.sort(() => 0.5 - Math.random());
     };
 
-    document.getElementById("main").innerHTML = `
+    document.getElementById('main').innerHTML = `
         <main class="game">
           <div class="game__container">
             <div class="game__timer">00:00</div>
@@ -165,16 +159,16 @@ export async function renderPage(
         </main>
       `;
 
-    document.getElementById("game-cards").setAttribute(
-      "style",
+    document.getElementById('game-cards').setAttribute(
+      'style',
       `
       grid-template-columns: repeat(${gameSettings.gridSize}, 15%);
       grid-template-rows: repeat(${gameSettings.gridSize}, 15%);
-    `
+    `,
     );
 
     gameModeSetup().forEach((i) => {
-      document.getElementById("game-cards").innerHTML += `
+      document.getElementById('game-cards').innerHTML += `
               <div class="game__card" data-id="photo${i}">
                 <div class="game__card--front">
                   <img src="/img/mask.png" alt="Mask">
@@ -185,9 +179,9 @@ export async function renderPage(
               </div>
             `;
     });
-  } else if (page === "reg") {
-    document.getElementById("app").insertAdjacentHTML(
-      "beforeend",
+  } else if (page === 'reg') {
+    document.getElementById('app').insertAdjacentHTML(
+      'beforeend',
 
       `
       <section class="reg" id="reg-window">
@@ -231,7 +225,7 @@ export async function renderPage(
           </div>
         </div>
       </section>
-    `
+    `,
     );
   }
 }
