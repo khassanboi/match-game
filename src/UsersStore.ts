@@ -31,20 +31,13 @@ export default class UsersStore {
     let db = null;
     const req = indexedDB.open("khassanboi", 1);
 
-    req.onupgradeneeded = (e) => {
-      db = req.result;
+    req.onupgradeneeded = async (e) => {
+      db = await req.result;
       const users = db.createObjectStore("usersData", { keyPath: "id" });
     };
 
-    req.onsuccess = (e) => {
-      db = req.result;
-    };
-
-    req.onerror = (e) => {
-      alert("ERROR");
-    };
-
-    setTimeout(() => {
+    req.onsuccess = async (e) => {
+      db = await req.result;
 
       const tx = method == "getUsers" ? db.transaction("usersData", "readonly") : db.transaction("usersData", "readwrite");
       tx.onerror = (e) => alert("There was an error: " + e.target.errorCode);
@@ -67,6 +60,10 @@ export default class UsersStore {
       } else if (method === "updateScore") {
         usersData.put(user);
       }
-    }, 500);
+    };
+
+    req.onerror = (e) => {
+      alert("ERROR");
+    };
   }
 }

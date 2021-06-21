@@ -49,7 +49,10 @@ export function setTemplate() {
   `;
 }
 
-export function renderPage(page: "about" | "ranking" | "settings" | "game" | "reg", gameSettings?: { gridSize: number; cardType: string }): void {
+export async function renderPage(
+  page: "about" | "ranking" | "settings" | "game" | "reg",
+  gameSettings?: { gridSize: number; cardType: string }
+): Promise<void> {
   let content: string = ``;
 
   if (page === "about") {
@@ -80,7 +83,7 @@ export function renderPage(page: "about" | "ranking" | "settings" | "game" | "re
           </main>
       `;
   } else if (page === "ranking") {
-    let users = new UsersStore()._getAllUsers();
+    let users = await new UsersStore()._getAllUsers();
 
     document.getElementById("main").innerHTML = `
         <main class="rank">
@@ -109,7 +112,7 @@ export function renderPage(page: "about" | "ranking" | "settings" | "game" | "re
             <h3 class="rank__item-score">Score: <span>${user.score}</span></h3>
           </li>`;
         });
-    }, 1000);
+    }, 100);
   } else if (page === "settings") {
     document.getElementById("main").innerHTML = `
         <main class="settings">

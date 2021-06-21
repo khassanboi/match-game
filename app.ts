@@ -77,18 +77,16 @@ document.getElementById("register").addEventListener("click", () => {
     } else {
       ["change", "keydown"].forEach((evt) => {
         input.addEventListener(evt, () => {
-          setTimeout(() => {
-            formValidator(input);
-            let formIsValid: boolean = true;
-            document.querySelectorAll(".reg__input:not(#avatar)").forEach((inp) => {
-              formIsValid = inp.parentElement.classList.contains("valid");
-            });
-            if (formIsValid) {
-              document.getElementById("add-user").classList.remove("disabled");
-            } else {
-              document.getElementById("add-user").classList.add("disabled");
-            }
-          }, 100);
+          formValidator(input);
+          let formIsValid: boolean = true;
+          document.querySelectorAll(".reg__input:not(#avatar)").forEach((inp) => {
+            formIsValid = inp.parentElement.classList.contains("valid");
+          });
+          if (formIsValid) {
+            document.getElementById("add-user").classList.remove("disabled");
+          } else {
+            document.getElementById("add-user").classList.add("disabled");
+          }
         });
       });
     }
