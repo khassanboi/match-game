@@ -1,4 +1,4 @@
-import UsersStore from './UsersStore.js';
+import UsersStore from './UsersStore';
 
 export function setTemplate() {
   document.getElementById('app').innerHTML = `
