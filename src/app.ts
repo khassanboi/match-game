@@ -5,9 +5,10 @@ import {
   imgToBlobConverter,
   formValidator,
   initUI,
-} from "./src/utils";
-import { setTemplate, renderPage } from "./src/pages";
-import UsersStore, { User } from "./src/UsersStore";
+} from "./ts/utils";
+import { setTemplate, renderPage } from "./ts/pages";
+import UsersStore, { User } from "./ts/UsersStore";
+import "./scss/style.scss";
 
 // interfacess
 declare global {
