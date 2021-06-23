@@ -5,7 +5,7 @@ export function generateUserID(): string {
 export function imgToBlobConverter(img): { size: number; type: string } {
   const binaryData = [];
   binaryData.push(img);
-  return new Blob(binaryData, { type: 'image' });
+  return new Blob(binaryData, { type: "image" });
 }
 
 export function imgToBase64Converter(img, success): void {
@@ -21,41 +21,48 @@ export function imgToBase64Converter(img, success): void {
 
 export function formValidator(input): void {
   const chars = "~!@#$%^&*()[]{}_-+=|:;\"'<>,.?/1234567890";
-  const emailChars = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+  const emailChars =
+    /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
   if (
-    (input.getAttribute('type') === 'text'
-      && input.value.trim()
-      && !chars.split('').some((ch) => input.value.includes(ch))
-      && input.value.split('').length <= 30)
-    || (input.getAttribute('type') === 'email' && emailChars.test(input.value))
+    (input.getAttribute("type") === "text" &&
+      input.value.trim() &&
+      !chars.split("").some((ch) => input.value.includes(ch)) &&
+      input.value.length <= 30) ||
+    (input.getAttribute("type") === "email" && emailChars.test(input.value))
   ) {
     // input is valid
-    input.closest('label').classList.remove('invalid');
-    input.closest('label').classList.add('valid');
+    input.closest("label").classList.remove("invalid");
+    input.closest("label").classList.add("valid");
   } else {
     // input is not valid
-    input.closest('label').classList.remove('valid');
-    input.closest('label').classList.add('invalid');
+    input.closest("label").classList.remove("valid");
+    input.closest("label").classList.add("invalid");
   }
 }
 
 export function initUI() {
-  const currentUser = localStorage.getItem('currentUser');
+  const currentUser = localStorage.getItem("currentUser");
   if (currentUser == null) {
-    document.querySelectorAll('.signed-in').forEach((item) => {
-      (item as HTMLElement).style.display = 'none';
+    document.querySelectorAll(".signed-in").forEach((item) => {
+      (item as HTMLElement).style.display = "none";
     });
-    (document.querySelector('.not-signed-in') as HTMLElement).style.display = 'inline-block';
+    (document.querySelector(".not-signed-in") as HTMLElement).style.display =
+      "inline-block";
   } else {
-    document.querySelectorAll('.signed-in').forEach((item) => {
-      (item as HTMLElement).style.display = 'inline-block';
+    document.querySelectorAll(".signed-in").forEach((item) => {
+      (item as HTMLElement).style.display = "inline-block";
     });
-    (document.querySelector('.not-signed-in') as HTMLElement).style.display = 'none';
+    (document.querySelector(".not-signed-in") as HTMLElement).style.display =
+      "none";
     if (JSON.parse(currentUser).avatar) {
-      document.getElementById('profile-avatar').setAttribute('src', JSON.parse(currentUser).avatar);
+      document
+        .getElementById("profile-avatar")
+        .setAttribute("src", JSON.parse(currentUser).avatar);
     } else {
-      document.getElementById('profile-avatar').setAttribute('src', '/img/profile.png');
+      document
+        .getElementById("profile-avatar")
+        .setAttribute("src", "/img/profile.png");
     }
   }
 }

@@ -136,25 +136,16 @@ export async function renderPage(
       const cardIndexes: number[] = [];
 
       if (gameSettings.gridSize === 4) {
-        for (let i = 0; i < 8; i += 1) {
-          cardIndexes.push(i + 1, i + 1);
+        for (let i = 1; i <= 8; i += 1) {
+          cardIndexes.push(i, i);
         }
       } else if (gameSettings.gridSize === 6) {
-        for (let i = 0; i < 9; i += 1) {
-          cardIndexes.push(i + 1, i + 1, i + 1, i + 1);
+        for (let i = 1; i <= 9; i += 1) {
+          cardIndexes.push(i, i, i, i);
         }
       } else if (gameSettings.gridSize === 8) {
-        for (let i = 0; i < 8; i += 1) {
-          cardIndexes.push(
-            i + 1,
-            i + 1,
-            i + 1,
-            i + 1,
-            i + 1,
-            i + 1,
-            i + 1,
-            i + 1
-          );
+        for (let i = 1; i <= 8; i += 1) {
+          cardIndexes.push(i, i, i, i, i, i, i, i);
         }
       }
 

@@ -148,33 +148,30 @@ document.querySelectorAll(".page-render").forEach((btn) => {
       page === "about" ||
       page === "ranking" ||
       page === "settings" ||
-      page === "game" ||
       page === "reg"
     ) {
-      if (page !== "game") {
-        renderPage(page);
-        if (window.timer) clearInterval(window.timer);
-      } else if (page === "game") {
-        gridSize =
-          document.getElementById("difficulty") &&
-          (<HTMLInputElement>document.getElementById("difficulty")).value
-            ? parseInt(
-                (<HTMLInputElement>document.getElementById("difficulty")).value,
-                10
-              )
-            : 4;
+      renderPage(page);
+      if (window.timer) clearInterval(window.timer);
+    } else if (page === "game") {
+      gridSize =
+        document.getElementById("difficulty") &&
+        (<HTMLInputElement>document.getElementById("difficulty")).value
+          ? parseInt(
+              (<HTMLInputElement>document.getElementById("difficulty")).value,
+              10
+            )
+          : 4;
 
-        renderPage("game", {
-          gridSize,
-          cardType:
-            document.getElementById("card-type") &&
-            (<HTMLInputElement>document.getElementById("card-type")).value
-              ? (<HTMLInputElement>document.getElementById("card-type")).value
-              : "animal",
-        });
+      renderPage("game", {
+        gridSize,
+        cardType:
+          document.getElementById("card-type") &&
+          (<HTMLInputElement>document.getElementById("card-type")).value
+            ? (<HTMLInputElement>document.getElementById("card-type")).value
+            : "animal",
+      });
 
-        startGame();
-      }
+      startGame();
     }
 
     document.querySelectorAll(".navbar__item").forEach((nav) => {
