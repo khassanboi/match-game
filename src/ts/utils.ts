@@ -43,6 +43,7 @@ export function formValidator(input): void {
 
 export function initUI() {
   const currentUser = localStorage.getItem("currentUser");
+
   if (currentUser == null) {
     document.querySelectorAll(".signed-in").forEach((item) => {
       (item as HTMLElement).style.display = "none";
@@ -56,13 +57,9 @@ export function initUI() {
     (document.querySelector(".not-signed-in") as HTMLElement).style.display =
       "none";
     if (JSON.parse(currentUser).avatar) {
-      document
-        .getElementById("profile-avatar")
-        .setAttribute("src", JSON.parse(currentUser).avatar);
-    } else {
-      document
-        .getElementById("profile-avatar")
-        .setAttribute("src", "/img/profile.png");
+      document.getElementById("nav-avatar").style["background-image"] = `url(${
+        JSON.parse(currentUser).avatar
+      })`;
     }
   }
 }

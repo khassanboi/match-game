@@ -39,9 +39,9 @@ export function setTemplate() {
           <a href="#" class="btn btn--ghost page-render not-signed-in" data-value="registration" id="register">Register New Player</a>
           <a href="#" class="btn btn--ghost page-render signed-in" data-value="game" id="start">Start Game</a>
           <a href="#" class="btn btn--ghost signed-in" id="quit">Quit</a>
-          <span class="profile-avatar signed-in">
-            <img src=${require("../img/profile.png")} alt="User Avatar" id="profile-avatar">
-          </span>
+          <div class="profile-avatar signed-in">
+            <div id="nav-avatar"></div>
+          </div>
         </div>
       </header>
       <main id="main"></main>
@@ -98,14 +98,14 @@ export async function renderPage(
           document.getElementById("rank-list").innerHTML += `
           <li class="rank__item">
             <div class="rank__item-container">
-              <img src="${
+              <div id="rank-avatar" style="background-image: url(${
                 user.avatar ? user.avatar : require("../img/profile.png")
-              }" alt="User 1" />
-                <div class="rank__item-details">
-                  <h3>${user.firstName} ${user.lastName}</h3>
-                  <p>${user.email}</p>
-                </div>
+              })" alt="User 1"></div>
+              <div class="rank__item-details">
+                <h3>${user.firstName} ${user.lastName}</h3>
+                <p>${user.email}</p>
               </div>
+            </div>
             <h3 class="rank__item-score">Score: <span>${user.score}</span></h3>
           </li>`;
         });
@@ -217,7 +217,7 @@ export async function renderPage(
             <div class="reg__form--avatar">
               <label for="avatar">
                 <input type="file" id="avatar" class="reg__input" accept="image/png, image/jpg, image/jpeg">
-                <img src=${require("../img/profile.png")} id="avatar-image" alt="Profile Icon">
+                <div id="avatar-image"></div>
               </label>
             </div>
             <div class="reg__buttons">

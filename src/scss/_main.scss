@@ -75,9 +75,13 @@
       align-items: center;
       justify-content: center;
 
-      img {
+      #nav-avatar {
         width: 4rem;
+        height: 4rem;
         border-radius: 50%;
+        background-image: url("../img/profile.png");
+        background-position: center center;
+        background-size: cover;
       }
     }
   }
@@ -190,7 +194,8 @@
     width: 64rem;
     padding: 2.1rem;
     background-color: #fafafa;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12),
+      0px 2px 4px rgba(0, 0, 0, 0.14);
     border-radius: 4px;
   }
 
@@ -268,9 +273,18 @@
     cursor: pointer;
     fill: #757575;
 
-    img {
-      width: 70%;
-      height: auto;
+    label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #avatar-image {
+      background-image: url("../img/profile.png");
+      background-position: center center;
+      background-size: cover;
+      width: 20rem;
+      height: 20rem;
       cursor: pointer;
       position: relative;
       border-radius: 50%;
@@ -441,11 +455,13 @@
     align-items: center;
     justify-content: space-between;
 
-    img {
+    #rank-avatar {
       width: 4rem;
-      height: auto;
+      height: 4rem;
+      background-image: url("../img/profile.png");
+      background-position: center center;
+      background-size: cover;
       border-radius: 50%;
-      border: 1px solid #aaa;
       margin-right: 1.5rem;
     }
   }

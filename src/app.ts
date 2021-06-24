@@ -189,16 +189,12 @@ document.getElementById("register").addEventListener("click", () => {
   document.querySelectorAll(".reg__input").forEach((input) => {
     if (input.getAttribute("type") === "file") {
       input.addEventListener("change", () => {
-        document
-          .getElementById("avatar-image")
-          .setAttribute(
-            "src",
-            URL.createObjectURL(
-              imgToBlobConverter(
-                (document.getElementById("avatar") as HTMLInputElement).files[0]
-              )
-            )
-          );
+        imgToBase64Converter(imgToBlobConverter((document.getElementById("avatar") as HTMLInputElement)
+        .files[0]), (img) => {
+          document.getElementById("avatar-image").style[
+            "background-image"
+          ] = `url(${img})`;
+        });
       });
     } else {
       ["change", "keydown"].forEach((evt) => {
