@@ -2,9 +2,10 @@
   "name": "match-game",
   "version": "1.0.0",
   "description": "A game of  matching pairs",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --fix --ext .ts",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,26 @@
   },
   "homepage": "https://github.com/khassanboi/match-game#readme",
   "dependencies": {
-    "eslint": "^7.27.0"
+    "eslint-plugin-import": "^2.22.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "css-loader": "^5.2.6",
+    "eslint": "^7.29.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "file-loader": "^6.2.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "prettier": "^2.3.1",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.4",
+    "webpack": "^5.40.0",
+    "webpack-cli": "^4.7.2"
   }
 }

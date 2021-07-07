@@ -1,4 +1,4 @@
-.navbar {
+.header {
   list-style: none;
   width: 100%;
   background-color: $primary-color;
@@ -59,9 +59,41 @@
     margin: 1.5rem 2.5rem;
     display: flex;
     justify-content: flex-end;
-  }
+    align-items: center;
 
-  &__item:not(:first-child):not(:last-child) {
+    #start,
+    #quit {
+      margin-left: 1.5rem;
+    }
+
+    .profile-avatar {
+      background-color: #ffffff;
+      margin-left: 2rem;
+      border-radius: 50%;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      #nav-avatar {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background-image: url("../img/profile.png");
+        background-position: center center;
+        background-size: cover;
+      }
+    }
+  }
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+
+  &__item {
     width: 9.6rem;
     height: 100%;
     padding: 1rem 0;
@@ -151,21 +183,19 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.25);
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
-
-  &.active {
-    display: flex;
-  }
+  position: fixed;
 
   &__window {
     width: 64rem;
     padding: 2.1rem;
     background-color: #fafafa;
-    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12), 0px 2px 4px rgba(0, 0, 0, 0.14);
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12),
+      0px 2px 4px rgba(0, 0, 0, 0.14);
     border-radius: 4px;
   }
 
@@ -211,9 +241,14 @@
       height: 2rem;
     }
 
-    &.active svg {
+    &.valid svg {
       opacity: 1;
       pointer-events: visible;
+    }
+
+    &.invalid {
+      background-color: rgb(255, 183, 175);
+      color: red;
     }
   }
 
@@ -224,14 +259,36 @@
     border-bottom: 1px solid rgba(33, 33, 33, 0.1);
     outline: none;
     font-size: 1.6rem;
+
+    &#avatar {
+      display: none;
+    }
   }
 
   &__form--avatar {
     width: 19.8rem;
     height: 19.8rem;
     flex-basis: 50%;
+    text-align: center;
     cursor: pointer;
     fill: #757575;
+
+    label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #avatar-image {
+      background-image: url("../img/profile.png");
+      background-position: center center;
+      background-size: cover;
+      width: 20rem;
+      height: 20rem;
+      cursor: pointer;
+      position: relative;
+      border-radius: 50%;
+    }
   }
 
   &__buttons {
@@ -245,18 +302,22 @@
       margin-right: 2rem;
     }
   }
+
+  #add-user.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    filter: grayscale(100%);
+  }
 }
 
 .game {
   &__container {
-    max-width: 1000px;
-    margin: 3.3rem auto;
+    width: 100%;
     padding: 3rem;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
   &__timer {
@@ -269,31 +330,34 @@
   }
 
   &__cards {
-    padding: 5rem 0;
+    margin: 5rem 0;
+    min-width: 100rem;
+    min-height: 100rem;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-column-gap: 2rem;
-    grid-row-gap: 1.5rem;
+    justify-content: center;
+    grid-gap: 2rem;
   }
 
   &__card {
     perspective: 150rem;
-    height: 18rem;
-    width: 18rem;
+    height: 100%;
+    width: 100%;
     position: relative;
     cursor: pointer;
+    transition: transform 0.2s;
 
     &--front,
     &--back {
-      height: 100%;
+      max-height: 100%;
       width: 100%;
       transition: all 0.5s;
       overflow: hidden;
       position: absolute;
 
       img {
+        object-fit: cover;
         width: 100%;
-        height: 100%;
+        max-height: 100%;
         border-radius: 5px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
       }
@@ -303,10 +367,15 @@
       transform: rotateY(180deg);
 
       img {
+        object-fit: cover;
         width: 100%;
-        height: 100%;
+        max-height: 100%;
         border: 1px solid #999;
       }
+    }
+
+    &.turned {
+      pointer-events: none;
     }
 
     &.turned &--front {
@@ -317,14 +386,29 @@
       transform: rotateY(0);
     }
 
-    &.turned.correct &--back::after {
+    &.turned &--back::after {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      opacity: 0;
+      transition: 0.5s opacity;
+    }
+
+    &.turned.correct {
+      transform: scale(80%);
+    }
+
+    &.turned.correct &--back::after {
       background-color: rgba(10, 207, 131, 0.5);
+      opacity: 0.8;
+    }
+
+    &.turned.incorrect &--back::after {
+      background-color: rgba(236, 53, 53, 0.884);
+      opacity: 0.5;
     }
   }
 }
@@ -332,7 +416,7 @@
 .rank {
   &__container {
     max-width: 1000px;
-    min-height: 600px;
+    min-height: 500px;
     margin: 3.3rem auto;
     padding: 3rem;
     background-color: rgba(0, 0, 0, 0.05);
@@ -371,11 +455,13 @@
     align-items: center;
     justify-content: space-between;
 
-    img {
+    #rank-avatar {
       width: 4rem;
-      height: auto;
+      height: 4rem;
+      background-image: url("../img/profile.png");
+      background-position: center center;
+      background-size: cover;
       border-radius: 50%;
-      border: 1px solid #aaa;
       margin-right: 1.5rem;
     }
   }
@@ -390,7 +476,7 @@
     max-width: 1000px;
     margin: 3.3rem auto;
     padding: 3rem;
-    box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.24), 0px 9px 18px rgba(0, 0, 0, 0.18);
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
